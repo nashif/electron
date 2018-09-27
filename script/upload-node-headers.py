@@ -66,7 +66,7 @@ def upload_node(bucket, access_key, secret_key, version):
     electron_lib = os.path.join(OUT_DIR, 'electron.lib')
     shutil.copy2(electron_lib, node_lib)
     shutil.copy2(electron_lib, iojs_lib)
-    shutil.copy2(atom_lib, v4_node_lib)
+    shutil.copy2(electron_lib, v4_node_lib)
 
     # Upload the node.lib.
     s3put(bucket, access_key, secret_key, DIST_DIR,

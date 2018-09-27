@@ -10,7 +10,7 @@ from lib.util import execute, rm_rf
 
 ELECTRON_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 SOURCE_ROOT = os.path.abspath(os.path.dirname(ELECTRON_ROOT))
-RELEASE_PATH = os.path.join('out', 'Release')
+RELEASE_PATH = os.path.join('out', 'Default')
 
 def main():
   args = parse_args()

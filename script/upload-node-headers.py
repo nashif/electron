@@ -54,16 +54,19 @@ def upload_node(bucket, access_key, secret_key, version):
     if get_target_arch() == 'ia32':
       node_lib = os.path.join(DIST_DIR, 'node.lib')
       iojs_lib = os.path.join(DIST_DIR, 'win-x86', 'iojs.lib')
+      v4_node_lib = os.path.join(DIST_DIR, 'win-x86', 'node.lib')
     else:
       node_lib = os.path.join(DIST_DIR, 'x64', 'node.lib')
       iojs_lib = os.path.join(DIST_DIR, 'win-x64', 'iojs.lib')
+      v4_node_lib = os.path.join(DIST_DIR, 'win-x64', 'node.lib')
     safe_mkdir(os.path.dirname(node_lib))
     safe_mkdir(os.path.dirname(iojs_lib))
 
-    # Copy electron.lib to node.lib and iojs.lib.
+    # Copy atom.lib to node.lib, iojs.lib and v4 node.lib
     electron_lib = os.path.join(OUT_DIR, 'electron.lib')
     shutil.copy2(electron_lib, node_lib)
     shutil.copy2(electron_lib, iojs_lib)
+    shutil.copy2(atom_lib, v4_node_lib)
 
     # Upload the node.lib.
     s3put(bucket, access_key, secret_key, DIST_DIR,
@@ -72,6 +75,10 @@ def upload_node(bucket, access_key, secret_key, version):
     # Upload the iojs.lib.
     s3put(bucket, access_key, secret_key, DIST_DIR,
           'atom-shell/dist/{0}'.format(version), [iojs_lib])
+
+    # Upload the v4 node.lib.
+    s3put(bucket, access_key, secret_key, DIST_DIR,
+          'atom-shell/dist/{0}'.format(version), [v4_node_lib])
 
 
 if __name__ == '__main__':
